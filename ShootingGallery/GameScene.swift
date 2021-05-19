@@ -37,11 +37,17 @@ class GameScene: SKScene {
 			addChild(waterForeground)
 
 			let target = SKSpriteNode(imageNamed: "target3")
-			target.position = CGPoint(x: 512, y: 260)
+			target.position = CGPoint(x: -300, y: 235)
 			target.zPosition = 2
 			target.name = "target"
 			addChild(target)
-        
+
+			target.physicsBody = SKPhysicsBody(circleOfRadius: target.size.width / 2)
+			target.physicsBody?.isDynamic = true
+			target.physicsBody?.allowsRotation = false
+			target.physicsBody?.affectedByGravity = false
+			target.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

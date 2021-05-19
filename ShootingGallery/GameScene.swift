@@ -18,6 +18,14 @@ class GameScene: SKScene {
 			background.scale(to: view.frame.size)
 			background.zPosition = -1
 			addChild(background)
+
+			let curtains = SKSpriteNode(imageNamed: "curtains")
+			curtains.position = CGPoint(x: 512, y: 384)
+			curtains.blendMode = .alpha
+			curtains.scale(to: view.frame.size)
+			curtains.zPosition = 10
+			addChild(curtains)
+
         
     }
 

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA499B9E2655C58D008319EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA499B9D2655C58D008319EA /* README.md */; };
 		DA69BDB72655C38100379B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69BDB62655C38100379B06 /* AppDelegate.swift */; };
 		DA69BDB92655C38100379B06 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DA69BDB82655C38100379B06 /* GameScene.sks */; };
-		DA69BDBB2655C38100379B06 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DA69BDBA2655C38100379B06 /* Actions.sks */; };
 		DA69BDBD2655C38100379B06 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69BDBC2655C38100379B06 /* GameScene.swift */; };
 		DA69BDBF2655C38100379B06 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69BDBE2655C38100379B06 /* GameViewController.swift */; };
 		DA69BDC22655C38100379B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA69BDC02655C38100379B06 /* Main.storyboard */; };
@@ -17,10 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA499B9D2655C58D008319EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA69BDB32655C38100379B06 /* ShootingGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShootingGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA69BDB62655C38100379B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA69BDB82655C38100379B06 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		DA69BDBA2655C38100379B06 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		DA69BDBC2655C38100379B06 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		DA69BDBE2655C38100379B06 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		DA69BDC12655C38100379B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -42,6 +42,7 @@
 		DA69BDAA2655C38100379B06 = {
 			isa = PBXGroup;
 			children = (
+				DA499B9D2655C58D008319EA /* README.md */,
 				DA69BDB52655C38100379B06 /* ShootingGallery */,
 				DA69BDB42655C38100379B06 /* Products */,
 			);
@@ -60,7 +61,6 @@
 			children = (
 				DA69BDB62655C38100379B06 /* AppDelegate.swift */,
 				DA69BDB82655C38100379B06 /* GameScene.sks */,
-				DA69BDBA2655C38100379B06 /* Actions.sks */,
 				DA69BDBC2655C38100379B06 /* GameScene.swift */,
 				DA69BDBE2655C38100379B06 /* GameViewController.swift */,
 				DA69BDC02655C38100379B06 /* Main.storyboard */,
@@ -129,8 +129,8 @@
 			files = (
 				DA69BDC22655C38100379B06 /* Main.storyboard in Resources */,
 				DA69BDB92655C38100379B06 /* GameScene.sks in Resources */,
+				DA499B9E2655C58D008319EA /* README.md in Resources */,
 				DA69BDC42655C38200379B06 /* Assets.xcassets in Resources */,
-				DA69BDBB2655C38100379B06 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +285,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UC6H82UP9B;
 				INFOPLIST_FILE = ShootingGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,7 +293,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.plrichardson.ShootingGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -304,6 +305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UC6H82UP9B;
 				INFOPLIST_FILE = ShootingGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,7 +313,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.plrichardson.ShootingGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

@@ -11,6 +11,13 @@ import GameplayKit
 class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
+
+			let background = SKSpriteNode(imageNamed: "wood-background")
+			background.position = CGPoint(x: 512, y: 384)
+			background.blendMode = .replace
+			background.scale(to: view.frame.size)
+			background.zPosition = -1
+			addChild(background)
         
     }
 

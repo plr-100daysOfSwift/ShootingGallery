@@ -26,6 +26,21 @@ class GameScene: SKScene {
 			curtains.zPosition = 10
 			addChild(curtains)
 
+			let waterBackground = SKSpriteNode(imageNamed: "water-bg")
+			waterBackground.position = CGPoint(x: 512, y: 110)
+			waterBackground.zPosition = 1
+			addChild(waterBackground)
+
+			let waterForeground = SKSpriteNode(imageNamed: "water-fg")
+			waterForeground.position = CGPoint(x: 512, y: 110)
+			waterForeground.zPosition = 3
+			addChild(waterForeground)
+
+			let target = SKSpriteNode(imageNamed: "target3")
+			target.position = CGPoint(x: 512, y: 260)
+			target.zPosition = 2
+			target.name = "target"
+			addChild(target)
         
     }
 

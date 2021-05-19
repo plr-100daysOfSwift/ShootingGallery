@@ -45,6 +45,14 @@ class GameScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+			guard let touch = touches.first else { return }
+			let location = touch.location(in: self)
+			let tappedNodes = nodes(at: location)
+			for node in tappedNodes {
+				if node.name == "target" {
+					run(.playSoundFileNamed("shot", waitForCompletion: false))
+				}
+			}
 
 		}
 

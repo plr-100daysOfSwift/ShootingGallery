@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DA499B9E2655C58D008319EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA499B9D2655C58D008319EA /* README.md */; };
+		DA499BA22655CCB1008319EA /* reload.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA499B9F2655CCB1008319EA /* reload.wav */; };
+		DA499BA32655CCB1008319EA /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA499BA02655CCB1008319EA /* shot.wav */; };
+		DA499BA42655CCB1008319EA /* empty.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA499BA12655CCB1008319EA /* empty.wav */; };
 		DA69BDB72655C38100379B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69BDB62655C38100379B06 /* AppDelegate.swift */; };
 		DA69BDB92655C38100379B06 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DA69BDB82655C38100379B06 /* GameScene.sks */; };
 		DA69BDBD2655C38100379B06 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69BDBC2655C38100379B06 /* GameScene.swift */; };
@@ -18,6 +21,9 @@
 
 /* Begin PBXFileReference section */
 		DA499B9D2655C58D008319EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA499B9F2655CCB1008319EA /* reload.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = reload.wav; sourceTree = "<group>"; };
+		DA499BA02655CCB1008319EA /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
+		DA499BA12655CCB1008319EA /* empty.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = empty.wav; sourceTree = "<group>"; };
 		DA69BDB32655C38100379B06 /* ShootingGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShootingGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA69BDB62655C38100379B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA69BDB82655C38100379B06 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -66,6 +72,9 @@
 				DA69BDC02655C38100379B06 /* Main.storyboard */,
 				DA69BDC32655C38200379B06 /* Assets.xcassets */,
 				DA69BDC52655C38200379B06 /* Info.plist */,
+				DA499BA12655CCB1008319EA /* empty.wav */,
+				DA499B9F2655CCB1008319EA /* reload.wav */,
+				DA499BA02655CCB1008319EA /* shot.wav */,
 			);
 			path = ShootingGallery;
 			sourceTree = "<group>";
@@ -127,10 +136,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA499BA32655CCB1008319EA /* shot.wav in Resources */,
 				DA69BDC22655C38100379B06 /* Main.storyboard in Resources */,
+				DA499BA42655CCB1008319EA /* empty.wav in Resources */,
 				DA69BDB92655C38100379B06 /* GameScene.sks in Resources */,
 				DA499B9E2655C58D008319EA /* README.md in Resources */,
 				DA69BDC42655C38200379B06 /* Assets.xcassets in Resources */,
+				DA499BA22655CCB1008319EA /* reload.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,6 +30,10 @@ class GameScene: SKScene {
 		}
 	}
 
+	let reload = SKAction.playSoundFileNamed("reload", waitForCompletion: false)
+	let shot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
+	let empty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
+
 	override func didMove(to view: SKView) {
 
 		timeRemaining = gameLength
@@ -79,7 +83,7 @@ class GameScene: SKScene {
 		let tappedNodes = nodes(at: location)
 		for node in tappedNodes {
 			if node.name == "target" {
-				run(.playSoundFileNamed("shot", waitForCompletion: false))
+				run(shot)
 			}
 		}
 

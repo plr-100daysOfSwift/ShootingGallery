@@ -38,7 +38,31 @@ class GameScene: SKScene {
 			scoreLabel.text = "Score: \(score)"
 		}
 	}
+
+	var shotsUsed = 0 {
+		didSet {
+			if shotsUsed < 4 {
+				holster1.texture = shots[shotsUsed]
+			} else {
+				holster2.texture = shots[shotsUsed]
+			}
+		}
+	}
+
 	var scoreLabel: SKLabelNode!
+
+	let shots = [
+		SKTexture(imageNamed: "shots0"),
+		SKTexture(imageNamed: "shots1"),
+		SKTexture(imageNamed: "shots2"),
+		SKTexture(imageNamed: "shots3"),
+		SKTexture(imageNamed: "shots1"),
+		SKTexture(imageNamed: "shots2"),
+		SKTexture(imageNamed: "shots3"),
+	]
+
+	var holster1: SKSpriteNode!
+	var holster2: SKSpriteNode!
 
 	override func didMove(to view: SKView) {
 
@@ -67,6 +91,18 @@ class GameScene: SKScene {
 		waterForeground.position = CGPoint(x: 512, y: 110)
 		waterForeground.zPosition = 3
 		addChild(waterForeground)
+
+		let holsterPadding = shots[0].size().width / 2 + 3.5
+
+		holster1 = SKSpriteNode(texture: shots[0])
+		holster1.position = CGPoint(x: 512 - holsterPadding, y: 50)
+		holster1.zPosition = 20
+		addChild(holster1)
+
+		holster2 = SKSpriteNode(texture: shots[0])
+		holster2.position = CGPoint(x: 512 + holsterPadding, y: 50)
+		holster2.zPosition = 20
+		addChild(holster2)
 
 		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
 		scoreLabel.position = CGPoint(x: 20, y: 720)

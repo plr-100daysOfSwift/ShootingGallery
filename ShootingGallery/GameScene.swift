@@ -41,15 +41,25 @@ class GameScene: SKScene {
 
 	var shotsUsed = 0 {
 		didSet {
-			if shotsUsed < 4 {
+			switch shotsUsed {
+			case 0:
 				holster1.texture = shots[shotsUsed]
-			} else {
 				holster2.texture = shots[shotsUsed]
+			case 1 ... 3:
+				holster1.texture = shots[shotsUsed]
+			case 4 ... 5:
+				holster2.texture = shots[shotsUsed]
+			case 6:
+				holster2.texture = shots[shotsUsed]
+				addChild(reloadLabel)
+			default:
+				return
 			}
 		}
 	}
 
 	var scoreLabel: SKLabelNode!
+	var reloadLabel: SKLabelNode!
 
 	let shots = [
 		SKTexture(imageNamed: "shots0"),
@@ -111,6 +121,13 @@ class GameScene: SKScene {
 		scoreLabel.zPosition = 20
 		addChild(scoreLabel)
 
+		reloadLabel = SKLabelNode(fontNamed: "Chalkduster")
+		reloadLabel.name = "reload"
+		reloadLabel.text = "Reload!"
+		reloadLabel.fontSize = 48
+		reloadLabel.position = CGPoint(x: 150, y: 30)
+		reloadLabel.horizontalAlignmentMode = .left
+		reloadLabel.zPosition = 20
 
 		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
 		timeRemainingLabel.text = String(timeRemaining)
@@ -130,6 +147,15 @@ class GameScene: SKScene {
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		guard let touch = touches.first else { return }
 		guard  timeRemaining > 0 else { return }
+
+		let location = touch.location(in: self)
+		let tappedNodes = nodes(at: location)
+		for node in tappedNodes {
+			if node.name == "reload" {
+				reload()
+				return
+			}
+		}
 
 		if shotsUsed < 6 {
 			shotsUsed += 1
@@ -177,5 +203,10 @@ class GameScene: SKScene {
 		addChild(gameOver)
 
 		timeRemainingLabel?.removeFromParent()
+	}
+
+	func reload() {
+		shotsUsed = 0
+		reloadLabel.removeFromParent()
 	}
 }

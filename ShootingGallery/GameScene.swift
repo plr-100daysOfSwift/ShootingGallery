@@ -11,18 +11,28 @@ import GameplayKit
 class GameScene: SKScene {
 
 	var gameTimer: Timer?
-	var elapsedTime: Int = 60
-	var timeRemaining: SKLabelNode!
-	var fullSecond: Bool = true {
-		willSet {
-			if  newValue == true {
-				elapsedTime -= 1
-				timeRemaining.text = String(elapsedTime)
+	var gameLength = 60
+	var timeRemaining: Int!
+	var timeRemainingLabel: SKLabelNode!
+	var isFullSecond: Bool = false {
+		didSet(fullSecond) {
+			if fullSecond == true {
+				timeRemaining -= 1
+				if timeRemaining == 0 {
+					timeRemaining = gameLength
+					DispatchQueue.main.async { [weak self] in
+						self?.run(.playSoundFileNamed("reload", waitForCompletion: false))
+					}
+				}
+
+				timeRemainingLabel.text = String(timeRemaining)
 			}
 		}
 	}
 
 	override func didMove(to view: SKView) {
+
+		timeRemaining = gameLength
 
 		let background = SKSpriteNode(imageNamed: "wood-background")
 		background.position = CGPoint(x: 512, y: 384)
@@ -48,17 +58,17 @@ class GameScene: SKScene {
 		waterForeground.zPosition = 3
 		addChild(waterForeground)
 
-		timeRemaining = SKLabelNode(fontNamed: "Chalkduster")
-		timeRemaining.text = String(elapsedTime)
-		timeRemaining.fontSize = 48
-		timeRemaining.position = CGPoint(x: 990, y: 720)
-		timeRemaining.horizontalAlignmentMode = .right
-		timeRemaining.zPosition = 20
-		addChild(timeRemaining)
+		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
+		timeRemainingLabel.text = String(timeRemaining)
+		timeRemainingLabel.fontSize = 48
+		timeRemainingLabel.position = CGPoint(x: 990, y: 720)
+		timeRemainingLabel.horizontalAlignmentMode = .right
+		timeRemainingLabel.zPosition = 20
+		addChild(timeRemainingLabel)
 
 		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
 			self.makeTarget()
-			self.fullSecond.toggle()
+			self.isFullSecond.toggle()
 		})
 
 	}

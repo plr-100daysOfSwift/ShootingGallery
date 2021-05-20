@@ -38,7 +38,6 @@ class GameScene: SKScene {
 			scoreLabel.text = "Score: \(score)"
 		}
 	}
-	var shotsRemaining = 6
 	var scoreLabel: SKLabelNode!
 
 	override func didMove(to view: SKView) {
@@ -96,8 +95,8 @@ class GameScene: SKScene {
 		guard let touch = touches.first else { return }
 		guard  timeRemaining > 0 else { return }
 
-		if shotsRemaining > 0 {
-			shotsRemaining -= 1
+		if shotsUsed < 6 {
+			shotsUsed += 1
 			run(shot)
 			let location = touch.location(in: self)
 			let tappedNodes = nodes(at: location)

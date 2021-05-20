@@ -10,6 +10,8 @@ import GameplayKit
 
 class GameScene: SKScene {
 
+	var gameTimer: Timer?
+
 	override func didMove(to view: SKView) {
 
 		let background = SKSpriteNode(imageNamed: "wood-background")
@@ -36,7 +38,9 @@ class GameScene: SKScene {
 		waterForeground.zPosition = 3
 		addChild(waterForeground)
 
-		makeTarget()
+		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true, block: { _ in
+			self.makeTarget()
+		})
 
 	}
 

@@ -27,9 +27,9 @@ class GameScene: SKScene {
 		}
 	}
 
-	let reload = SKAction.playSoundFileNamed("reload", waitForCompletion: false)
-	let shot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
-	let empty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
+	let playReload = SKAction.playSoundFileNamed("reload", waitForCompletion: false)
+	let playShot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
+	let playEmpty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
 
 	let centrePoint = CGPoint(x: 512, y: 384)
 
@@ -133,7 +133,7 @@ class GameScene: SKScene {
 
 		if shotsUsed < 6 {
 			shotsUsed += 1
-			run(shot)
+			run(playShot)
 			let location = touch.location(in: self)
 			let tappedNodes = nodes(at: location)
 			for node in tappedNodes {
@@ -142,7 +142,7 @@ class GameScene: SKScene {
 				}
 			}
 		} else {
-			run(empty)
+			run(playEmpty)
 		}
 
 	}

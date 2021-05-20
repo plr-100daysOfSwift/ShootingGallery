@@ -150,24 +150,22 @@ class GameScene: SKScene {
 
 		let location = touch.location(in: self)
 		let tappedNodes = nodes(at: location)
-		for node in tappedNodes {
-			if node.name == "reload" {
-				reload()
-				return
-			}
-		}
 
 		if shotsUsed < 6 {
 			shotsUsed += 1
 			run(playShot)
-			let location = touch.location(in: self)
-			let tappedNodes = nodes(at: location)
 			for node in tappedNodes {
 				if node.name == "target" {
 					score += 1
 				}
 			}
 		} else {
+			for node in tappedNodes {
+				if node.name == "reload" {
+					reload()
+					return
+				}
+			}
 			run(playEmpty)
 		}
 

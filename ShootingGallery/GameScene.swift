@@ -22,7 +22,6 @@ class GameScene: SKScene {
 					finishGame()
 					return
 				}
-
 				timeRemainingLabel.text = String(timeRemaining)
 			}
 		}
@@ -33,6 +32,14 @@ class GameScene: SKScene {
 	let empty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
 
 	let centrePoint = CGPoint(x: 512, y: 384)
+
+	var score = 0 {
+		didSet {
+			scoreLabel.text = "Score: \(score)"
+		}
+	}
+	var shotsRemaining = 6
+	var scoreLabel: SKLabelNode!
 
 	override func didMove(to view: SKView) {
 
@@ -62,6 +69,14 @@ class GameScene: SKScene {
 		waterForeground.zPosition = 3
 		addChild(waterForeground)
 
+		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+		scoreLabel.position = CGPoint(x: 20, y: 720)
+		scoreLabel.text = "Score: 0"
+		scoreLabel.horizontalAlignmentMode = .left
+		scoreLabel.zPosition = 20
+		addChild(scoreLabel)
+
+
 		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
 		timeRemainingLabel.text = String(timeRemaining)
 		timeRemainingLabel.fontSize = 48
@@ -79,12 +94,19 @@ class GameScene: SKScene {
 
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		guard let touch = touches.first else { return }
-		let location = touch.location(in: self)
-		let tappedNodes = nodes(at: location)
-		for node in tappedNodes {
-			if node.name == "target" {
-				run(shot)
+
+		if shotsRemaining > 0 {
+			shotsRemaining -= 1
+			run(shot)
+			let location = touch.location(in: self)
+			let tappedNodes = nodes(at: location)
+			for node in tappedNodes {
+				if node.name == "target" {
+					score += 1
+				}
 			}
+		} else {
+			run(empty)
 		}
 
 	}
@@ -117,7 +139,7 @@ class GameScene: SKScene {
 		gameOver.position = centrePoint
 		gameOver.zPosition = 10
 		addChild(gameOver)
-		
+
 		timeRemainingLabel?.removeFromParent()
 	}
 }

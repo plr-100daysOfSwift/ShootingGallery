@@ -34,19 +34,21 @@ class GameScene: SKScene {
 	let shot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
 	let empty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
 
+	let centrePoint = CGPoint(x: 512, y: 384)
+
 	override func didMove(to view: SKView) {
 
 		timeRemaining = gameLength
 
 		let background = SKSpriteNode(imageNamed: "wood-background")
-		background.position = CGPoint(x: 512, y: 384)
+		background.position = centrePoint
 		background.blendMode = .replace
 		background.scale(to: view.frame.size)
 		background.zPosition = -1
 		addChild(background)
 
 		let curtains = SKSpriteNode(imageNamed: "curtains")
-		curtains.position = CGPoint(x: 512, y: 384)
+		curtains.position = centrePoint
 		curtains.blendMode = .alpha
 		curtains.scale(to: view.frame.size)
 		curtains.zPosition = 10

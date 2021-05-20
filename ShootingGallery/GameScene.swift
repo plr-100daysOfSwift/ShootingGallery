@@ -11,6 +11,16 @@ import GameplayKit
 class GameScene: SKScene {
 
 	var gameTimer: Timer?
+	var elapsedTime: Int = 60
+	var timeRemaining: SKLabelNode!
+	var fullSecond: Bool = true {
+		willSet {
+			if  newValue == true {
+				elapsedTime -= 1
+				timeRemaining.text = String(elapsedTime)
+			}
+		}
+	}
 
 	override func didMove(to view: SKView) {
 
@@ -38,8 +48,17 @@ class GameScene: SKScene {
 		waterForeground.zPosition = 3
 		addChild(waterForeground)
 
-		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true, block: { _ in
+		timeRemaining = SKLabelNode(fontNamed: "Chalkduster")
+		timeRemaining.text = String(elapsedTime)
+		timeRemaining.fontSize = 48
+		timeRemaining.position = CGPoint(x: 990, y: 720)
+		timeRemaining.horizontalAlignmentMode = .right
+		timeRemaining.zPosition = 20
+		addChild(timeRemaining)
+
+		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
 			self.makeTarget()
+			self.fullSecond.toggle()
 		})
 
 	}

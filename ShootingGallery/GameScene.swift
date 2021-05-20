@@ -19,10 +19,8 @@ class GameScene: SKScene {
 			if fullSecond == true {
 				timeRemaining -= 1
 				if timeRemaining == 0 {
-					timeRemaining = gameLength
-					DispatchQueue.main.async { [weak self] in
-						self?.run(.playSoundFileNamed("reload", waitForCompletion: false))
-					}
+					finishGame()
+					return
 				}
 
 				timeRemainingLabel.text = String(timeRemaining)
@@ -111,5 +109,15 @@ class GameScene: SKScene {
 		target.physicsBody?.allowsRotation = false
 		target.physicsBody?.affectedByGravity = false
 		target.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+	}
+
+	func finishGame() {
+		gameTimer?.invalidate()
+		let gameOver = SKSpriteNode(imageNamed: "game-over")
+		gameOver.position = centrePoint
+		gameOver.zPosition = 10
+		addChild(gameOver)
+		
+		timeRemainingLabel?.removeFromParent()
 	}
 }

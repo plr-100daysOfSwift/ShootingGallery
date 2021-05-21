@@ -157,6 +157,9 @@ class GameScene: SKScene {
 			for node in tappedNodes {
 				if node.name == "target" {
 					score += 1
+					let fade = SKAction.fadeOut(withDuration: 0.5)
+					let remove = SKAction.removeFromParent()
+					node.run(SKAction.sequence([fade, remove]))
 				}
 			}
 		} else {

@@ -204,6 +204,7 @@ class GameScene: SKScene {
 		addChild(gameOver)
 
 		timeRemainingLabel?.removeFromParent()
+		reloadLabel?.removeFromParent()
 	}
 
 	func reload() {

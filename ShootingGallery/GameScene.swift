@@ -14,6 +14,7 @@ class GameScene: SKScene {
 	var gameLength = 60
 	var timeRemaining: Int!
 	var timeRemainingLabel: SKLabelNode!
+
 	var isFullSecond: Bool = false {
 		didSet(fullSecond) {
 			if fullSecond == true {
@@ -58,7 +59,9 @@ class GameScene: SKScene {
 		}
 	}
 
-	let targets = ["target1", "target2", "target3"]
+	var ducks = [String]()
+	var targets = [String]()
+
 
 	var scoreLabel: SKLabelNode!
 	var reloadLabel: SKLabelNode!
@@ -77,6 +80,9 @@ class GameScene: SKScene {
 	var holster2: SKSpriteNode!
 
 	override func didMove(to view: SKView) {
+
+		ducks = ["target1", "target2", "target3"]
+		targets =  ["target0"] + ducks
 
 		timeRemaining = gameLength
 
@@ -141,8 +147,10 @@ class GameScene: SKScene {
 		addChild(timeRemainingLabel)
 
 		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-			self.makeTarget()
+			self.makeDuckTarget()
 			self.isFullSecond.toggle()
+			let x = Int.random(in: 0 ... 10)
+			if x == 0 { self.makeBullsEyeTarget() }
 		})
 
 	}
@@ -160,10 +168,12 @@ class GameScene: SKScene {
 			for node in tappedNodes {
 				if node.name?.prefix(6) == "target" {
 					switch node.name {
-					case targets[1]:
+					case targets[3]:
 						score += 1
 					case targets[2]:
 						score -= 1
+					case targets[0]:
+						score += 5
 					default:
 						break
 					}
@@ -192,11 +202,11 @@ class GameScene: SKScene {
 		}
 	}
 
-	func makeTarget() {
+	func makeDuckTarget() {
 
-		let targetName = targets.randomElement() ?? "target1"
+		let targetName = ducks.randomElement()!
 
-		let target = SKSpriteNode(imageNamed: targetName )
+		let target = SKSpriteNode(imageNamed: targetName)
 		target.position = CGPoint(x: -300, y: 235)
 		target.zPosition = 2
 		target.name = targetName
@@ -207,6 +217,20 @@ class GameScene: SKScene {
 		target.physicsBody?.allowsRotation = false
 		target.physicsBody?.affectedByGravity = false
 		target.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+	}
+
+	func makeBullsEyeTarget() {
+		let targetName = targets[0]
+		let target = SKSpriteNode(imageNamed: targetName)
+		target.position = CGPoint(x: 1200, y: 450)
+		target.zPosition = 2
+		target.name = targetName
+		addChild(target)
+
+		target.physicsBody = SKPhysicsBody(circleOfRadius: target.size.width / 2)
+		target.physicsBody?.allowsRotation = false
+		target.physicsBody?.affectedByGravity = false
+		target.physicsBody?.velocity = CGVector(dx: -750, dy: 0)
 	}
 
 	func finishGame() {

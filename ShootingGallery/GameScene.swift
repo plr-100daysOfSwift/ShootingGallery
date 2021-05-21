@@ -58,6 +58,8 @@ class GameScene: SKScene {
 		}
 	}
 
+	let targets = ["target1", "target2", "target3"]
+
 	var scoreLabel: SKLabelNode!
 	var reloadLabel: SKLabelNode!
 
@@ -156,8 +158,15 @@ class GameScene: SKScene {
 			shotsUsed += 1
 			run(playShot)
 			for node in tappedNodes {
-				if node.name == "target" {
-					score += 1
+				if node.name?.prefix(6) == "target" {
+					switch node.name {
+					case targets[1]:
+						score += 1
+					case targets[2]:
+						score -= 1
+					default:
+						break
+					}
 					let fade = SKAction.fadeOut(withDuration: 0.5)
 					let remove = SKAction.removeFromParent()
 					node.run(SKAction.sequence([fade, remove]))
@@ -184,10 +193,13 @@ class GameScene: SKScene {
 	}
 
 	func makeTarget() {
-		let target = SKSpriteNode(imageNamed: "target3")
+
+		let targetName = targets.randomElement() ?? "target1"
+
+		let target = SKSpriteNode(imageNamed: targetName )
 		target.position = CGPoint(x: -300, y: 235)
 		target.zPosition = 2
-		target.name = "target"
+		target.name = targetName
 		addChild(target)
 
 		target.physicsBody = SKPhysicsBody(circleOfRadius: target.size.width / 2)

@@ -194,25 +194,19 @@ class GameScene: SKScene {
 
 	}
 
-	override func update(_ currentTime: TimeInterval) {
-		for node in children {
-			if node.position.x > 1200 {
-				node.removeFromParent()
-			}
-		}
-	}
-
 	func makeDuckTarget() {
 
 		let targetName = ducks.randomElement()!
 
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: -200, y: 235)
+		target.position = CGPoint(x: 0, y: 235)
 		target.zPosition = 2
 		target.name = targetName
 		addChild(target)
 
-		target.run(.move(by: CGVector(dx: 1400, dy: 0), duration: 4))
+		let move = SKAction.move(by: CGVector(dx: 1200, dy: 0), duration: 4)
+		let remove = SKAction.removeFromParent()
+		target.run(SKAction.sequence([move, remove]))
 	}
 
 	func makeBullsEyeTarget() {
@@ -223,7 +217,9 @@ class GameScene: SKScene {
 		target.name = targetName
 		addChild(target)
 
-		target.run(.move(by: CGVector(dx: -1200, dy: 0), duration: 1.8))
+		let move = SKAction.move(by: CGVector(dx: -1200, dy: 0), duration: 1.8)
+		let remove = SKAction.removeFromParent()
+		target.run(SKAction.sequence([move, remove]))
 	}
 
 	func finishGame() {

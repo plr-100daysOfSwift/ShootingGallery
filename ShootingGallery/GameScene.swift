@@ -97,29 +97,34 @@ class GameScene: SKScene {
 		curtains.position = centrePoint
 		curtains.blendMode = .alpha
 		curtains.scale(to: view.frame.size)
-		curtains.zPosition = 10
+		curtains.zPosition = 90
 		addChild(curtains)
 
+		let grass = SKSpriteNode(imageNamed: "grass-trees")
+		grass.position = CGPoint(x: 512, y: 330)
+		grass.zPosition = 10
+		addChild(grass)
+
 		let waterBackground = SKSpriteNode(imageNamed: "water-bg")
-		waterBackground.position = CGPoint(x: 512, y: 110)
-		waterBackground.zPosition = 1
+		waterBackground.position = CGPoint(x: 512, y: 170)
+		waterBackground.zPosition = 20
 		addChild(waterBackground)
 
 		let waterForeground = SKSpriteNode(imageNamed: "water-fg")
-		waterForeground.position = CGPoint(x: 512, y: 110)
-		waterForeground.zPosition = 3
+		waterForeground.position = CGPoint(x: 512, y: 140)
+		waterForeground.zPosition = 30
 		addChild(waterForeground)
 
 		let holsterPadding = shots[0].size().width / 2 + 3.5
 
 		holster1 = SKSpriteNode(texture: shots[0])
 		holster1.position = CGPoint(x: 512 - holsterPadding, y: 50)
-		holster1.zPosition = 20
+		holster1.zPosition = 100
 		addChild(holster1)
 
 		holster2 = SKSpriteNode(texture: shots[0])
 		holster2.position = CGPoint(x: 512 + holsterPadding, y: 50)
-		holster2.zPosition = 20
+		holster2.zPosition = 100
 		addChild(holster2)
 
 		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -127,7 +132,7 @@ class GameScene: SKScene {
 		scoreLabel.text = "Score: 0"
 		scoreLabel.fontSize = 48
 		scoreLabel.horizontalAlignmentMode = .left
-		scoreLabel.zPosition = 20
+		scoreLabel.zPosition = 100
 		addChild(scoreLabel)
 
 		reloadLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -136,14 +141,14 @@ class GameScene: SKScene {
 		reloadLabel.fontSize = 48
 		reloadLabel.position = CGPoint(x: 150, y: 30)
 		reloadLabel.horizontalAlignmentMode = .left
-		reloadLabel.zPosition = 20
+		reloadLabel.zPosition = 100
 
 		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
 		timeRemainingLabel.text = String(timeRemaining)
 		timeRemainingLabel.fontSize = 48
 		timeRemainingLabel.position = CGPoint(x: 990, y: 720)
 		timeRemainingLabel.horizontalAlignmentMode = .right
-		timeRemainingLabel.zPosition = 20
+		timeRemainingLabel.zPosition = 100
 		addChild(timeRemainingLabel)
 
 		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
@@ -199,8 +204,8 @@ class GameScene: SKScene {
 		let targetName = ducks.randomElement()!
 
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: 0, y: 235)
-		target.zPosition = 2
+		target.position = CGPoint(x: 0, y: 255)
+		target.zPosition = 25
 		target.name = targetName
 		addChild(target)
 
@@ -212,14 +217,20 @@ class GameScene: SKScene {
 	func makeBullsEyeTarget() {
 		let targetName = targets[0]
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: 1200, y: 450)
-		target.zPosition = 2
+		target.position = CGPoint(x: 1200, y: 420)
+		target.zPosition = 15
 		target.name = targetName
 		addChild(target)
+
+		let stick = SKSpriteNode(imageNamed: "stick0")
+		stick.position = CGPoint(x: 1200, y: 310)
+		stick.zPosition = 14
+		addChild(stick)
 
 		let move = SKAction.move(by: CGVector(dx: -1200, dy: 0), duration: 1.8)
 		let remove = SKAction.removeFromParent()
 		target.run(SKAction.sequence([move, remove]))
+		stick.run(SKAction.sequence([move, remove]))
 	}
 
 	func finishGame() {

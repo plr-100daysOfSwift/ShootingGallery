@@ -144,7 +144,7 @@ class GameScene: SKScene {
 		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
 			self.makeDuckTarget()
 			self.isFullSecond.toggle()
-			let x = Int.random(in: 0 ... 10)
+			let x = Int.random(in: 0 ... 6)
 			if x == 0 { self.makeBullsEyeTarget() }
 		})
 

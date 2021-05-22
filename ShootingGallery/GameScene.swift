@@ -79,6 +79,7 @@ class GameScene: SKScene {
 	var holster1: SKSpriteNode!
 	var holster2: SKSpriteNode!
 
+
 	override func didMove(to view: SKView) {
 
 		ducks = ["target1", "target2", "target3"]
@@ -100,10 +101,7 @@ class GameScene: SKScene {
 		curtains.zPosition = 90
 		addChild(curtains)
 
-		let grass = SKSpriteNode(imageNamed: "grass-trees")
-		grass.position = CGPoint(x: 512, y: 330)
-		grass.zPosition = 10
-		addChild(grass)
+		addGrass()
 
 		let waterBackground = SKSpriteNode(imageNamed: "water-bg")
 		waterBackground.position = CGPoint(x: 512, y: 170)
@@ -198,6 +196,35 @@ class GameScene: SKScene {
 		}
 
 	}
+
+	fileprivate func addGrass() {
+
+		let grassNode = SKNode()
+		addChild(grassNode)
+
+		let positionX: CGFloat = 512
+		let positionY: CGFloat = 340
+		let zPosition:CGFloat = 10
+
+		let grass = SKSpriteNode(imageNamed: "grass-trees")
+		grass.position = CGPoint(x: positionX, y: positionY)
+		grass.zPosition = zPosition
+		grassNode.addChild(grass)
+
+		let offset = grass.size.width
+
+		let grassLeft = SKSpriteNode(imageNamed: "grass-trees")
+		grassLeft.position =  CGPoint(x: positionX - offset, y: positionY)
+		grassLeft.zPosition = zPosition
+		grassNode.addChild(grassLeft)
+
+		let grassRight = SKSpriteNode(imageNamed: "grass-trees")
+		grassRight.position = CGPoint(x: positionX + offset, y: positionY)
+		grassRight.zPosition = zPosition
+		grassNode.addChild(grassRight)
+		
+	}
+
 
 	func makeDuckTarget() {
 

@@ -174,7 +174,11 @@ class GameScene: SKScene {
 					}
 					let fade = SKAction.fadeOut(withDuration: 0.5)
 					let remove = SKAction.removeFromParent()
-					node.run(SKAction.sequence([fade, remove]))
+					if node.name == targets[0] {
+						node.parent?.run(SKAction.sequence([fade, remove]))
+					} else {
+						node.run(SKAction.sequence([fade, remove]))
+					}
 				}
 			}
 		} else {
@@ -283,22 +287,25 @@ class GameScene: SKScene {
 	}
 
 	func makeBullsEyeTarget() {
+
+		let targetNode = SKNode()
+		addChild(targetNode)
+
 		let targetName = targets[0]
 		let target = SKSpriteNode(imageNamed: targetName)
 		target.position = CGPoint(x: 1200, y: 420)
 		target.zPosition = 15
 		target.name = targetName
-		addChild(target)
+		targetNode.addChild(target)
 
 		let stick = SKSpriteNode(imageNamed: "stick0")
 		stick.position = CGPoint(x: 1200, y: 310)
 		stick.zPosition = 14
-		addChild(stick)
+		targetNode.addChild(stick)
 
 		let move = SKAction.move(by: CGVector(dx: -1200, dy: 0), duration: 1.8)
 		let remove = SKAction.removeFromParent()
-		target.run(SKAction.sequence([move, remove]))
-		stick.run(SKAction.sequence([move, remove]))
+		targetNode.run(SKAction.sequence([move, remove]))
 	}
 
 	func finishGame() {

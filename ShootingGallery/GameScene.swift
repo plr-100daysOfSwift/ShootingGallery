@@ -103,15 +103,7 @@ class GameScene: SKScene {
 
 		addGrass()
 
-		let waterBackground = SKSpriteNode(imageNamed: "water-bg")
-		waterBackground.position = CGPoint(x: 512, y: 170)
-		waterBackground.zPosition = 20
-		addChild(waterBackground)
-
-		let waterForeground = SKSpriteNode(imageNamed: "water-fg")
-		waterForeground.position = CGPoint(x: 512, y: 140)
-		waterForeground.zPosition = 30
-		addChild(waterForeground)
+		addWater()
 
 		let holsterPadding = shots[0].size().width / 2 + 3.5
 
@@ -222,9 +214,57 @@ class GameScene: SKScene {
 		grassRight.position = CGPoint(x: positionX + offset, y: positionY)
 		grassRight.zPosition = zPosition
 		grassNode.addChild(grassRight)
-		
+
 	}
 
+	fileprivate func addWater() {
+
+		let waterBackgroundNode = SKNode()
+		addChild(waterBackgroundNode)
+
+		let tilingCorrection: CGFloat = -4 // images don't tile exactly
+		let positionX: CGFloat = 512
+
+		var positionY: CGFloat = 170
+		var zPosition:CGFloat = 20
+
+		// background
+
+		let backgroundTexture = SKTexture(imageNamed: "water-bg")
+		let offset = (backgroundTexture.size().width / 2) + tilingCorrection
+
+		let waterBackgroundLeft = SKSpriteNode(texture: backgroundTexture)
+		waterBackgroundLeft.position = CGPoint(x: positionX - offset, y: positionY)
+		waterBackgroundLeft.zPosition = zPosition
+		waterBackgroundNode.addChild(waterBackgroundLeft)
+
+		let waterBackgroundRight = SKSpriteNode(texture: backgroundTexture)
+		waterBackgroundRight.position = CGPoint(x: positionX + offset, y: positionY)
+		waterBackgroundRight.zPosition = zPosition
+
+		waterBackgroundNode.addChild(waterBackgroundRight)
+
+		// foreground
+
+		let waterForegroundNode = SKNode()
+		addChild(waterForegroundNode)
+
+		positionY = 120
+		zPosition = 30
+
+		let foregroundTexture = SKTexture(imageNamed: "water-fg")
+
+		let waterForegroundLeft = SKSpriteNode(texture: foregroundTexture)
+		waterForegroundLeft.position = CGPoint(x: positionX - offset, y: positionY)
+		waterForegroundLeft.zPosition = zPosition
+		waterForegroundNode.addChild(waterForegroundLeft)
+
+		let waterForegroundRight = SKSpriteNode(texture: foregroundTexture)
+		waterForegroundRight.position = CGPoint(x: positionX + offset, y: positionY)
+		waterForegroundRight.zPosition = zPosition
+		waterForegroundNode.addChild(waterForegroundRight)
+
+	}
 
 	func makeDuckTarget() {
 

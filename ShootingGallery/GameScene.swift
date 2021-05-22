@@ -203,7 +203,8 @@ class GameScene: SKScene {
 		grass.zPosition = zPosition
 		grassNode.addChild(grass)
 
-		let offset = grass.size.width
+		let tilingCorrection: CGFloat = -5 // images don't tile exactly
+		let offset = grass.size.width + tilingCorrection
 
 		let grassLeft = SKSpriteNode(imageNamed: "grass-trees")
 		grassLeft.position =  CGPoint(x: positionX - offset, y: positionY)

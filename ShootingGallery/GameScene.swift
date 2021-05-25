@@ -47,11 +47,11 @@ class GameScene: SKScene {
 				holster1.texture = shots[shotsUsed]
 				holster2.texture = shots[shotsUsed]
 			case 1 ... 3:
-				holster1.texture = shots[shotsUsed]
+				holster2.texture = shots[shotsUsed]
 			case 4 ... 5:
-				holster2.texture = shots[shotsUsed]
+				holster1.texture = shots[shotsUsed]
 			case 6:
-				holster2.texture = shots[shotsUsed]
+				holster1.texture = shots[shotsUsed]
 				addChild(reloadLabel)
 			default:
 				return
@@ -65,15 +65,17 @@ class GameScene: SKScene {
 
 	var scoreLabel: SKLabelNode!
 	var reloadLabel: SKLabelNode!
+	var newGameLabel: SKLabelNode!
+	var gameOverLabel: SKSpriteNode!
 
 	let shots = [
+		SKTexture(imageNamed: "shots3"),
+		SKTexture(imageNamed: "shots2"),
+		SKTexture(imageNamed: "shots1"),
 		SKTexture(imageNamed: "shots0"),
-		SKTexture(imageNamed: "shots1"),
 		SKTexture(imageNamed: "shots2"),
-		SKTexture(imageNamed: "shots3"),
 		SKTexture(imageNamed: "shots1"),
-		SKTexture(imageNamed: "shots2"),
-		SKTexture(imageNamed: "shots3"),
+		SKTexture(imageNamed: "shots0"),
 	]
 
 	let sticks = ["stick0", "stick1", "stick2"]
@@ -81,6 +83,15 @@ class GameScene: SKScene {
 	var holster1: SKSpriteNode!
 	var holster2: SKSpriteNode!
 
+
+	fileprivate func startTimer() {
+		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+			self.makeDuckTarget()
+			self.isFullSecond.toggle()
+			let x = Int.random(in: 0 ... 6)
+			if x == 0 { self.makeBullsEyeTarget() }
+		})
+	}
 
 	override func didMove(to view: SKView) {
 
@@ -102,51 +113,58 @@ class GameScene: SKScene {
 
 		addWater()
 
-
-		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-			self.makeDuckTarget()
-			self.isFullSecond.toggle()
-			let x = Int.random(in: 0 ... 6)
-			if x == 0 { self.makeBullsEyeTarget() }
-		})
+		startTimer()
 
 	}
 
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		guard let touch = touches.first else { return }
-		guard  timeRemaining > 0 else { return }
-
 		let location = touch.location(in: self)
 		let tappedNodes = nodes(at: location)
 
-		if shotsUsed < 6 {
-			shotsUsed += 1
-			run(playShot)
-			for node in tappedNodes {
-				if node.name?.prefix(6) == "target" {
+		if  timeRemaining > 0 {
+			if shotsUsed < 6 {
+				shotsUsed += 1
+				run(playShot)
+				for node in tappedNodes {
+					if node.name?.prefix(6) == "target" {
+						switch node.name {
+						case targets[3]:
+							score += 1
+						case targets[2]:
+							score -= 1
+						case targets[0]:
+							score += 5
+						default:
+							break
+						}
+						let fade = SKAction.fadeOut(withDuration: 0.5)
+						let remove = SKAction.removeFromParent()
+						node.parent?.run(SKAction.sequence([fade, remove]))
+					}
+				}
+			} else {
+				for node in tappedNodes {
 					switch node.name {
-					case targets[3]:
-						score += 1
-					case targets[2]:
-						score -= 1
-					case targets[0]:
-						score += 5
+					case "reload":
+						reload()
+						return
 					default:
 						break
 					}
-					let fade = SKAction.fadeOut(withDuration: 0.5)
-					let remove = SKAction.removeFromParent()
-					node.parent?.run(SKAction.sequence([fade, remove]))
 				}
+				run(playEmpty)
 			}
-		} else {
+		}else {
 			for node in tappedNodes {
-				if node.name == "reload" {
-					reload()
+				switch node.name {
+				case "new":
+					newGame()
 					return
+				default:
+					break
 				}
 			}
-			run(playEmpty)
 		}
 
 	}
@@ -187,6 +205,14 @@ class GameScene: SKScene {
 		reloadLabel.horizontalAlignmentMode = .right
 		reloadLabel.zPosition = 100
 
+		newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+		newGameLabel.name = "new"
+		newGameLabel.text = "Restart"
+		newGameLabel.fontSize = 48
+		newGameLabel.position = CGPoint(x: 874, y: 35)
+		newGameLabel.horizontalAlignmentMode = .right
+		newGameLabel.zPosition = 100
+
 		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
 		timeRemainingLabel.text = String(timeRemaining)
 		timeRemainingLabel.fontSize = 64
@@ -194,6 +220,10 @@ class GameScene: SKScene {
 		timeRemainingLabel.horizontalAlignmentMode = .center
 		timeRemainingLabel.zPosition = 100
 		addChild(timeRemainingLabel)
+
+		gameOverLabel = SKSpriteNode(imageNamed: "game-over")
+		gameOverLabel.position = centrePoint
+		gameOverLabel.zPosition = 100
 
 	}
 
@@ -341,17 +371,26 @@ class GameScene: SKScene {
 
 	func finishGame() {
 		gameTimer?.invalidate()
-		let gameOver = SKSpriteNode(imageNamed: "game-over")
-		gameOver.position = centrePoint
-		gameOver.zPosition = 10
-		addChild(gameOver)
+		addChild(gameOverLabel)
 
 		timeRemainingLabel?.removeFromParent()
 		reloadLabel?.removeFromParent()
+		addChild(newGameLabel)
 	}
 
 	func reload() {
 		shotsUsed = 0
 		reloadLabel.removeFromParent()
+	}
+
+	func newGame() {
+		newGameLabel.removeFromParent()
+		gameOverLabel.removeFromParent()
+		isFullSecond = false
+		timeRemaining = 60
+		score = 0
+		shotsUsed = 0
+		addChild(timeRemainingLabel)
+		startTimer()
 	}
 }

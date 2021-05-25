@@ -379,7 +379,7 @@ class GameScene: SKScene {
 		reloadLabel?.removeFromParent()
 
 		newGameLabel.alpha = 0
-		let wait = SKAction.wait(forDuration: 1.0)
+		let wait = SKAction.wait(forDuration: 4.0)
 		let fadeIn = SKAction.fadeIn(withDuration: 2.0)
 		newGameLabel.run(SKAction.sequence([wait, fadeIn]))
 		addChild(newGameLabel)

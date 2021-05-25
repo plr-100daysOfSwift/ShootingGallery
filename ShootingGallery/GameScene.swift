@@ -76,6 +76,8 @@ class GameScene: SKScene {
 		SKTexture(imageNamed: "shots3"),
 	]
 
+	let sticks = ["stick0", "stick1", "stick2"]
+
 	var holster1: SKSpriteNode!
 	var holster2: SKSpriteNode!
 
@@ -294,7 +296,7 @@ class GameScene: SKScene {
 		target.name = targetName
 		targetNode.addChild(target)
 
-		let stick = SKSpriteNode(imageNamed: "stick1")
+		let stick = SKSpriteNode(imageNamed: sticks.randomElement()!)
 		stick.position = CGPoint(x: xPosition, y: yPosition - 110)
 		stick.zPosition = zPosition - 1
 		targetNode.addChild(stick)
@@ -316,7 +318,7 @@ class GameScene: SKScene {
 		target.name = targetName
 		targetNode.addChild(target)
 
-		let stick = SKSpriteNode(imageNamed: "stick0")
+		let stick = SKSpriteNode(imageNamed: sticks.randomElement()!)
 		stick.position = CGPoint(x: 0, y: 310)
 		stick.zPosition = 14
 		targetNode.addChild(stick)

@@ -264,7 +264,7 @@ class GameScene: SKScene {
 		let tilingCorrection: CGFloat = -4 // images don't tile exactly
 		let positionX: CGFloat = 512
 
-		var positionY: CGFloat = 180
+		var positionY: CGFloat = 190
 		var zPosition:CGFloat = 20
 
 		// background
@@ -281,6 +281,8 @@ class GameScene: SKScene {
 		waterBackgroundRight.position = CGPoint(x: positionX + offset, y: positionY)
 		waterBackgroundRight.zPosition = zPosition
 
+		waterBackgroundNode.xScale = 0.85
+		waterBackgroundNode.yScale = 0.85
 		waterBackgroundNode.addChild(waterBackgroundRight)
 
 		// foreground
@@ -342,6 +344,9 @@ class GameScene: SKScene {
 		stick.zPosition = zPosition - 1
 		targetNode.addChild(stick)
 
+		targetNode.xScale = leftToRight ? 1.0 : 0.85
+		targetNode.yScale = leftToRight ? 1.0 : 0.85
+
 		let move = SKAction.move(by: CGVector(dx: moveX, dy: 0), duration: 4)
 		let remove = SKAction.removeFromParent()
 		targetNode.run(SKAction.sequence([move, remove]))
@@ -354,13 +359,13 @@ class GameScene: SKScene {
 
 		let targetName = targets[0]
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: 0, y: 420)
+		target.position = CGPoint(x: 0, y: 390)
 		target.zPosition = 15
 		target.name = targetName
 		targetNode.addChild(target)
 
 		let stick = SKSpriteNode(imageNamed: sticks.randomElement()!)
-		stick.position = CGPoint(x: 0, y: 310)
+		stick.position = CGPoint(x: 0, y: 280)
 		stick.zPosition = 14
 		targetNode.addChild(stick)
 

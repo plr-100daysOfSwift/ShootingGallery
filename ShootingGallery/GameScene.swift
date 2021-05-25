@@ -330,6 +330,7 @@ class GameScene: SKScene {
 		let yPosition: CGFloat = leftToRight ? 260 : 320
 		let zPosition: CGFloat = leftToRight ? 35 : 25
 		let moveX: CGFloat = leftToRight ? 1200 : -1200
+		let duration: TimeInterval = leftToRight ? 4 : 3
 
 		let targetNode = SKNode()
 		addChild(targetNode)
@@ -351,7 +352,7 @@ class GameScene: SKScene {
 		targetNode.xScale = leftToRight ? 1.0 : 0.85
 		targetNode.yScale = leftToRight ? 1.0 : 0.85
 
-		let move = SKAction.move(by: CGVector(dx: moveX, dy: 0), duration: 4)
+		let move = SKAction.move(by: CGVector(dx: moveX, dy: 0), duration: duration)
 		let remove = SKAction.removeFromParent()
 		targetNode.run(SKAction.sequence([move, remove]))
 	}

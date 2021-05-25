@@ -94,52 +94,12 @@ class GameScene: SKScene {
 		background.zPosition = -1
 		addChild(background)
 
-		let curtains = SKSpriteNode(imageNamed: "curtains")
-		curtains.position = centrePoint
-		curtains.blendMode = .alpha
-		curtains.scale(to: view.frame.size)
-		curtains.zPosition = 90
-		addChild(curtains)
+		createOverlay(view)
 
 		addGrass()
 
 		addWater()
 
-		let holsterPadding = shots[0].size().width / 2 + 3.5
-
-		holster1 = SKSpriteNode(texture: shots[0])
-		holster1.position = CGPoint(x: 512 - holsterPadding, y: 50)
-		holster1.zPosition = 100
-		addChild(holster1)
-
-		holster2 = SKSpriteNode(texture: shots[0])
-		holster2.position = CGPoint(x: 512 + holsterPadding, y: 50)
-		holster2.zPosition = 100
-		addChild(holster2)
-
-		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-		scoreLabel.position = CGPoint(x: 20, y: 720)
-		scoreLabel.text = "Score: 0"
-		scoreLabel.fontSize = 48
-		scoreLabel.horizontalAlignmentMode = .left
-		scoreLabel.zPosition = 100
-		addChild(scoreLabel)
-
-		reloadLabel = SKLabelNode(fontNamed: "Chalkduster")
-		reloadLabel.name = "reload"
-		reloadLabel.text = "Reload!"
-		reloadLabel.fontSize = 48
-		reloadLabel.position = CGPoint(x: 150, y: 30)
-		reloadLabel.horizontalAlignmentMode = .left
-		reloadLabel.zPosition = 100
-
-		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
-		timeRemainingLabel.text = String(timeRemaining)
-		timeRemainingLabel.fontSize = 48
-		timeRemainingLabel.position = CGPoint(x: 990, y: 720)
-		timeRemainingLabel.horizontalAlignmentMode = .right
-		timeRemainingLabel.zPosition = 100
-		addChild(timeRemainingLabel)
 
 		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
 			self.makeDuckTarget()
@@ -186,6 +146,52 @@ class GameScene: SKScene {
 			}
 			run(playEmpty)
 		}
+
+	}
+
+	fileprivate func createOverlay(_ view: SKView) {
+		let curtains = SKSpriteNode(imageNamed: "curtains")
+		curtains.position = centrePoint
+		curtains.blendMode = .alpha
+		curtains.scale(to: view.frame.size)
+		curtains.zPosition = 90
+		addChild(curtains)
+
+		let holsterPadding = shots[0].size().width / 2 + 3.5
+
+		holster1 = SKSpriteNode(texture: shots[0])
+		holster1.position = CGPoint(x: 512 - holsterPadding, y: 50)
+		holster1.zPosition = 100
+		addChild(holster1)
+
+		holster2 = SKSpriteNode(texture: shots[0])
+		holster2.position = CGPoint(x: 512 + holsterPadding, y: 50)
+		holster2.zPosition = 100
+		addChild(holster2)
+
+		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+		scoreLabel.position = CGPoint(x: 874, y: 35)
+		scoreLabel.text = "Score: 0"
+		scoreLabel.fontSize = 48
+		scoreLabel.horizontalAlignmentMode = .right
+		scoreLabel.zPosition = 100
+		addChild(scoreLabel)
+
+		reloadLabel = SKLabelNode(fontNamed: "Chalkduster")
+		reloadLabel.name = "reload"
+		reloadLabel.text = "Reload!"
+		reloadLabel.fontSize = 48
+		reloadLabel.position = CGPoint(x: 150, y: 35)
+		reloadLabel.horizontalAlignmentMode = .left
+		reloadLabel.zPosition = 100
+
+		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
+		timeRemainingLabel.text = String(timeRemaining)
+		timeRemainingLabel.fontSize = 64
+		timeRemainingLabel.position = CGPoint(x: 512, y: 700)
+		timeRemainingLabel.horizontalAlignmentMode = .center
+		timeRemainingLabel.zPosition = 100
+		addChild(timeRemainingLabel)
 
 	}
 

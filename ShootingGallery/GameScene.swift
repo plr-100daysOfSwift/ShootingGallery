@@ -11,7 +11,7 @@ import GameplayKit
 class GameScene: SKScene {
 
 	var gameTimer: Timer?
-	var gameLength = 60
+	var gameLength = 20
 	var timeRemaining: Int!
 	var timeRemainingLabel: SKLabelNode!
 
@@ -386,11 +386,14 @@ class GameScene: SKScene {
 	func newGame() {
 		newGameLabel.removeFromParent()
 		gameOverLabel.removeFromParent()
-		isFullSecond = false
-		timeRemaining = 60
+
 		score = 0
 		shotsUsed = 0
+
+		timeRemaining = gameLength
+		timeRemainingLabel.text = String(timeRemaining)
 		addChild(timeRemainingLabel)
+
 		startTimer()
 	}
 }

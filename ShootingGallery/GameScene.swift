@@ -11,7 +11,7 @@ import GameplayKit
 class GameScene: SKScene {
 
 	var gameTimer: Timer?
-	var gameLength = 20
+	var gameLength = 60
 	var timeRemaining: Int!
 	var timeRemainingLabel: SKLabelNode!
 

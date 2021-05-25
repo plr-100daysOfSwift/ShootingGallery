@@ -278,8 +278,8 @@ class GameScene: SKScene {
 		let leftToRight = Bool.random()
 
 		let xPosition:CGFloat = leftToRight ? 0 : 1200
-		let yPosition: CGFloat = leftToRight ? 300 : 360
-		let zPosition: CGFloat = leftToRight ? 25 : 15
+		let yPosition: CGFloat = leftToRight ? 260 : 320
+		let zPosition: CGFloat = leftToRight ? 35 : 25
 		let moveX: CGFloat = leftToRight ? 1200 : -1200
 
 		let targetNode = SKNode()
@@ -311,17 +311,17 @@ class GameScene: SKScene {
 
 		let targetName = targets[0]
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: 1200, y: 420)
+		target.position = CGPoint(x: 0, y: 420)
 		target.zPosition = 15
 		target.name = targetName
 		targetNode.addChild(target)
 
 		let stick = SKSpriteNode(imageNamed: "stick0")
-		stick.position = CGPoint(x: 1200, y: 310)
+		stick.position = CGPoint(x: 0, y: 310)
 		stick.zPosition = 14
 		targetNode.addChild(stick)
 
-		let move = SKAction.move(by: CGVector(dx: -1200, dy: 0), duration: 1.8)
+		let move = SKAction.move(by: CGVector(dx: 1200, dy: 0), duration: 1.8)
 		let remove = SKAction.removeFromParent()
 		targetNode.run(SKAction.sequence([move, remove]))
 	}

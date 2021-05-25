@@ -172,10 +172,10 @@ class GameScene: SKScene {
 		addChild(holster2)
 
 		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-		scoreLabel.position = CGPoint(x: 874, y: 35)
+		scoreLabel.position = CGPoint(x: 150, y: 35)
 		scoreLabel.text = "Score: 0"
 		scoreLabel.fontSize = 48
-		scoreLabel.horizontalAlignmentMode = .right
+		scoreLabel.horizontalAlignmentMode = .left
 		scoreLabel.zPosition = 100
 		addChild(scoreLabel)
 
@@ -183,8 +183,8 @@ class GameScene: SKScene {
 		reloadLabel.name = "reload"
 		reloadLabel.text = "Reload!"
 		reloadLabel.fontSize = 48
-		reloadLabel.position = CGPoint(x: 150, y: 35)
-		reloadLabel.horizontalAlignmentMode = .left
+		reloadLabel.position = CGPoint(x: 874, y: 35)
+		reloadLabel.horizontalAlignmentMode = .right
 		reloadLabel.zPosition = 100
 
 		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")

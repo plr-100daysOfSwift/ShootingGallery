@@ -10,29 +10,17 @@ import GameplayKit
 
 class GameScene: SKScene {
 
+	// MARK:- Properties
+
 	var gameTimer: Timer?
 	var gameLength = 60
 	var timeRemaining: Int!
+
 	var timeRemainingLabel: SKLabelNode!
-
-	var isFullSecond: Bool = false {
-		didSet(fullSecond) {
-			if fullSecond == true {
-				timeRemaining -= 1
-				if timeRemaining == 0 {
-					finishGame()
-					return
-				}
-				timeRemainingLabel.text = String(timeRemaining)
-			}
-		}
-	}
-
-	let playReload = SKAction.playSoundFileNamed("reload", waitForCompletion: false)
-	let playShot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
-	let playEmpty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
-
-	let centrePoint = CGPoint(x: 512, y: 384)
+	var scoreLabel: SKLabelNode!
+	var reloadLabel: SKLabelNode!
+	var gameOverLabel: SKSpriteNode!
+	var newGameLabel: SKLabelNode!
 
 	var score = 0 {
 		didSet {
@@ -59,14 +47,21 @@ class GameScene: SKScene {
 		}
 	}
 
+	var isFullSecond: Bool = false {
+		didSet(fullSecond) {
+			if fullSecond == true {
+				timeRemaining -= 1
+				if timeRemaining == 0 {
+					finishGame()
+					return
+				}
+				timeRemainingLabel.text = String(timeRemaining)
+			}
+		}
+	}
+
 	var ducks = [String]()
 	var targets = [String]()
-
-
-	var scoreLabel: SKLabelNode!
-	var reloadLabel: SKLabelNode!
-	var newGameLabel: SKLabelNode!
-	var gameOverLabel: SKSpriteNode!
 
 	let shots = [
 		SKTexture(imageNamed: "shots3"),
@@ -83,15 +78,13 @@ class GameScene: SKScene {
 	var holster1: SKSpriteNode!
 	var holster2: SKSpriteNode!
 
+	let playReload = SKAction.playSoundFileNamed("reload", waitForCompletion: false)
+	let playShot = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
+	let playEmpty = SKAction.playSoundFileNamed("empty", waitForCompletion: false)
 
-	fileprivate func startTimer() {
-		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-			self.makeDuckTarget()
-			self.isFullSecond.toggle()
-			let x = Int.random(in: 0 ... 6)
-			if x == 0 { self.makeBullsEyeTarget() }
-		})
-	}
+	let centrePoint = CGPoint(x: 512, y: 384)
+
+	// MARK:- Life Cycle
 
 	override func didMove(to view: SKView) {
 
@@ -155,7 +148,7 @@ class GameScene: SKScene {
 				}
 				run(playEmpty)
 			}
-		}else {
+		} else {
 			for node in tappedNodes {
 				switch node.name {
 				case "new":
@@ -168,6 +161,8 @@ class GameScene: SKScene {
 		}
 
 	}
+
+	// MARK:- Private Methods
 
 	fileprivate func createOverlay(_ view: SKView) {
 		let curtains = SKSpriteNode(imageNamed: "curtains")
@@ -318,7 +313,16 @@ class GameScene: SKScene {
 		node.run(repeatForever)
 	}
 
-	func makeDuckTarget() {
+	fileprivate func startTimer() {
+		gameTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+			self.makeDuckTarget()
+			self.isFullSecond.toggle()
+			let x = Int.random(in: 0 ... 6)
+			if x == 0 { self.makeBullsEyeTarget() }
+		})
+	}
+
+	fileprivate func makeDuckTarget() {
 
 		let leftToRight = Bool.random()
 
@@ -352,7 +356,7 @@ class GameScene: SKScene {
 		targetNode.run(SKAction.sequence([move, remove]))
 	}
 
-	func makeBullsEyeTarget() {
+	fileprivate func makeBullsEyeTarget() {
 
 		let targetNode = SKNode()
 		addChild(targetNode)
@@ -374,7 +378,12 @@ class GameScene: SKScene {
 		targetNode.run(SKAction.sequence([move, remove]))
 	}
 
-	func finishGame() {
+	fileprivate func reload() {
+		shotsUsed = 0
+		reloadLabel.removeFromParent()
+	}
+
+	fileprivate func finishGame() {
 		gameTimer?.invalidate()
 		gameOverLabel.alpha = 0
 		gameOverLabel.run(SKAction.fadeIn(withDuration: 1.0))
@@ -390,12 +399,7 @@ class GameScene: SKScene {
 		addChild(newGameLabel)
 	}
 
-	func reload() {
-		shotsUsed = 0
-		reloadLabel.removeFromParent()
-	}
-
-	func newGame() {
+	fileprivate func newGame() {
 		newGameLabel.removeFromParent()
 		gameOverLabel.removeFromParent()
 

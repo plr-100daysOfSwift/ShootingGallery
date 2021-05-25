@@ -232,7 +232,7 @@ class GameScene: SKScene {
 		let tilingCorrection: CGFloat = -4 // images don't tile exactly
 		let positionX: CGFloat = 512
 
-		var positionY: CGFloat = 170
+		var positionY: CGFloat = 180
 		var zPosition:CGFloat = 20
 
 		// background
@@ -275,24 +275,31 @@ class GameScene: SKScene {
 
 	func makeDuckTarget() {
 
-		let yPosition: CGFloat = 300
+		let leftToRight = Bool.random()
+
+		let xPosition:CGFloat = leftToRight ? 0 : 1200
+		let yPosition: CGFloat = leftToRight ? 300 : 360
+		let zPosition: CGFloat = leftToRight ? 25 : 15
+		let moveX: CGFloat = leftToRight ? 1200 : -1200
+
 		let targetNode = SKNode()
 		addChild(targetNode)
 
 		let targetName = ducks.randomElement()!
 
 		let target = SKSpriteNode(imageNamed: targetName)
-		target.position = CGPoint(x: 0, y: yPosition)
-		target.zPosition = 25
+		target.xScale = leftToRight ? 1 : -1
+		target.position = CGPoint(x: xPosition, y: yPosition)
+		target.zPosition = zPosition
 		target.name = targetName
 		targetNode.addChild(target)
 
 		let stick = SKSpriteNode(imageNamed: "stick1")
-		stick.position = CGPoint(x: 0, y: yPosition - 110)
-		stick.zPosition = 24
+		stick.position = CGPoint(x: xPosition, y: yPosition - 110)
+		stick.zPosition = zPosition - 1
 		targetNode.addChild(stick)
 
-		let move = SKAction.move(by: CGVector(dx: 1200, dy: 0), duration: 4)
+		let move = SKAction.move(by: CGVector(dx: moveX, dy: 0), duration: 4)
 		let remove = SKAction.removeFromParent()
 		targetNode.run(SKAction.sequence([move, remove]))
 	}

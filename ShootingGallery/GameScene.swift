@@ -273,6 +273,17 @@ class GameScene: SKScene {
 		waterForegroundRight.zPosition = zPosition
 		waterForegroundNode.addChild(waterForegroundRight)
 
+		animate(waterForegroundNode, distance: 10, duration: 0.4)
+		animate(waterBackgroundNode, distance: 8, duration: 0.6)
+
+	}
+
+	fileprivate func animate(_ node: SKNode, distance: CGFloat, duration: TimeInterval) {
+		let moveUp = SKAction.moveBy(x: 0, y: distance, duration: duration)
+		let moveDown = moveUp.reversed()
+		let sequence = SKAction.sequence([moveUp, moveDown])
+		let repeatForever = SKAction.repeatForever(sequence)
+		node.run(repeatForever)
 	}
 
 	func makeDuckTarget() {

@@ -208,7 +208,9 @@ class GameScene: SKScene {
 		newGameLabel.horizontalAlignmentMode = .right
 		newGameLabel.zPosition = 100
 
-		timeRemainingLabel = SKLabelNode(fontNamed: "Chalkduster")
+		timeRemainingLabel = SKLabelNode(fontNamed: "SF Mono")
+		timeRemainingLabel.color = .green
+		timeRemainingLabel.colorBlendFactor = 0.7
 		timeRemainingLabel.text = String(timeRemaining)
 		timeRemainingLabel.fontSize = 64
 		timeRemainingLabel.position = CGPoint(x: 512, y: 700)

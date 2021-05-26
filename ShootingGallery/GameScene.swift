@@ -185,7 +185,7 @@ class GameScene: SKScene {
 		addChild(holster2)
 
 		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-		scoreLabel.position = CGPoint(x: 150, y: 35)
+		scoreLabel.position = CGPoint(x: 120, y: 35)
 		scoreLabel.text = "Score: 0"
 		scoreLabel.fontSize = 48
 		scoreLabel.horizontalAlignmentMode = .left

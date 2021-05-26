@@ -13,8 +13,8 @@ class GameScene: SKScene {
 	// MARK:- Properties
 
 	var gameTimer: Timer?
-	var gameLength = 60
-	var timeRemaining: Int!
+	var gameLength: TimeInterval = 60
+	var timeRemaining: TimeInterval!
 
 	var timeRemainingLabel: SKLabelNode!
 	var scoreLabel: SKLabelNode!
@@ -55,7 +55,7 @@ class GameScene: SKScene {
 					finishGame()
 					return
 				}
-				timeRemainingLabel.text = String(timeRemaining)
+				timeRemainingLabel.text = String(Int(timeRemaining))
 			}
 		}
 	}
@@ -211,7 +211,7 @@ class GameScene: SKScene {
 		timeRemainingLabel = SKLabelNode(fontNamed: "SF Mono")
 		timeRemainingLabel.color = .green
 		timeRemainingLabel.colorBlendFactor = 0.7
-		timeRemainingLabel.text = String(timeRemaining)
+		timeRemainingLabel.text = String(Int(timeRemaining))
 		timeRemainingLabel.fontSize = 64
 		timeRemainingLabel.position = CGPoint(x: 512, y: 700)
 		timeRemainingLabel.horizontalAlignmentMode = .center
@@ -332,7 +332,14 @@ class GameScene: SKScene {
 		let yPosition: CGFloat = leftToRight ? 260 : 320
 		let zPosition: CGFloat = leftToRight ? 35 : 25
 		let moveX: CGFloat = leftToRight ? 1200 : -1200
-		let duration: TimeInterval = leftToRight ? 4 : 3
+		var duration: TimeInterval = leftToRight ? 4 : 3
+		if timeRemaining < gameLength / 2 {
+			duration *= 0.8
+		} else if timeRemaining < gameLength / 4 {
+			duration *= 0.7
+		} else if timeRemaining < gameLength / 5 {
+			duration *= 0.6
+		}
 
 		let targetNode = SKNode()
 		addChild(targetNode)
@@ -364,6 +371,13 @@ class GameScene: SKScene {
 		let targetNode = SKNode()
 		addChild(targetNode)
 
+		var duration : TimeInterval = 2.4
+		if timeRemaining < gameLength / 2.5 {
+			duration *= 0.75
+		} else if timeRemaining < gameLength / 4 {
+			duration *= 0.6
+		}
+
 		let targetName = targets[0]
 		let target = SKSpriteNode(imageNamed: targetName)
 		target.position = CGPoint(x: 0, y: 390)
@@ -376,7 +390,7 @@ class GameScene: SKScene {
 		stick.zPosition = 14
 		targetNode.addChild(stick)
 
-		let move = SKAction.move(by: CGVector(dx: 1200, dy: 0), duration: 1.8)
+		let move = SKAction.move(by: CGVector(dx: 1200, dy: 0), duration: duration)
 		let remove = SKAction.removeFromParent()
 		targetNode.run(SKAction.sequence([move, remove]))
 	}
